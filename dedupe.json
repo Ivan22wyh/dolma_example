@@ -1,8 +1,6 @@
 {
   "documents": [
-    "/mnt/geogpt-gpfs/llm-course/home/xzhh/OLMo/data/Math_data_for7B/documents/MathPile/*.gz",
-    "/mnt/geogpt-gpfs/llm-course/home/xzhh/OLMo/data/Math_data_for7B/documents/Openwebmath/*.gz",
-    "/mnt/geogpt-gpfs/llm-course/home/xzhh/OLMo/data/Math_data_for7B/documents/proof-pile-2-algebraic-stack-trian/*.gz"
+    "output/documents/*.gz"
   ],
   "work_dir": {
     "input": "/tmp/work/para/input",
