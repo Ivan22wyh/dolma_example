@@ -7,7 +7,7 @@
     "output": "/tmp/work/para/output"
   },
   "dedupe": {
-    "name": "dedupe_paragraphs_2",
+    "name": "dedupe_paragraphs",
     "paragraphs": {
       "attribute_name": "bff_duplicate_paragraph_spans"
     }
