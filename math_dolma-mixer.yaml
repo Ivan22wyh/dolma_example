@@ -1,0 +1,113 @@
+
+streams:
+  - name: Math_text
+    documents:
+    - 400G_data/400G_data_dolma_formate/documents/Math_text/*.gz
+    attributes:
+    - dedupe_paragraphs
+    output:
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/Math_text/
+      max_size_in_bytes: 500000000
+      discard_fields:
+      - attributes
+    filter:
+      exclude:
+      - "$@.attributes[?(@.bff_duplicate_paragraph_spans && @.bff_duplicate_paragraph_spans[0] && @.bff_duplicate_paragraph_spans[0][2] >= 1.0)]"
+
+  - name: MathPile
+    documents:
+    - 400G_data/400G_data_dolma_formate/documents/MathPile/*.gz
+    attributes:
+    - dedupe_paragraphs
+    output:
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/MathPile/
+      max_size_in_bytes: 500000000
+      discard_fields:
+      - attributes
+    filter:
+      exclude:
+      - "$@.attributes[?(@.bff_duplicate_paragraph_spans && @.bff_duplicate_paragraph_spans[0] && @.bff_duplicate_paragraph_spans[0][2] >= 1.0)]"
+
+
+
+
+  - name: RedPajamaArXiv
+    documents:
+#    - 400G_data/400G_data_dolma_formate/documents/Math_text/*.gz
+#    - 400G_data/400G_data_dolma_formate/documents/MathPile/*.gz
+    - 400G_data/400G_data_dolma_formate/documents/RedPajamaArXiv/*.gz
+#    - 400G_data/400G_data_dolma_formate/documents/RedPajamaBook/*.gz
+#    - 400G_data/400G_data_dolma_formate/documents/RedPajamaC4/*.gz
+#    - 400G_data/400G_data_dolma_formate/documents/RedPajamaCommonCrawl/*.gz
+#    - 400G_data/400G_data_dolma_formate/documents/RedPajamaWikipedia/*.gz
+
+    attributes: &attributes
+    - cld2_en_paragraph_with_doc_score_v2
+    - code_redpajama_taggers_v1
+    - pii_regex_v2
+    - random_number_v1
+    - dedupe_paragraphs
+
+    output: &output
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaArXiv/
+      max_size_in_bytes: 500000000
+      discard_fields:
+      - attributes
+
+    filter: &filter
+      exclude:
+      - "$.attributes[?(@.cld2_en_paragraph_with_doc_score_v2__cld2_en_paragraph_with_doc_score_v2__doc_en[0][2]
+        < 0.5)]"
+      - "$.attributes[?(@.pii_regex_v2__pii_regex_v2__doc[0][2]
+        > 0.8)]"
+      - "$.attributes[?(@.code_redpajama_taggers_v1__code_redpajama_taggers_v1__max_line_length_doc[0][2]
+        > 1000)]"
+      - "$.attributes[?(@.code_redpajama_taggers_v1__code_redpajama_taggers_v1__alnum_prop_doc[0][2]
+        < 0.25)]"
+      - "$.attributes[?(@.code_redpajama_taggers_v1__code_redpajama_taggers_v1__alpha_token_prop_doc[0][2]
+        < 1.5)]"
+      - "$@.attributes[?(@.bff_duplicate_paragraph_spans && @.bff_duplicate_paragraph_spans[0] && @.bff_duplicate_paragraph_spans[0][2] >= 1.0)]"
+
+  - name: RedPajamaBook
+    documents:
+      - 400G_data/400G_data_dolma_formate/documents/RedPajamaBook/*.gz
+    attributes: *attributes
+    output:
+      <<: *output
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaBook/
+    filter: *filter
+
+  - name: RedPajamaC4
+    documents:
+      - 400G_data/400G_data_dolma_formate/documents/RedPajamaC4/*.gz
+    attributes: *attributes
+    output:
+      <<: *output
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaC4/
+    filter: *filter
+
+  - name: RedPajamaCommonCrawl
+    documents:
+      - 400G_data/400G_data_dolma_formate/documents/RedPajamaCommonCrawl/*.gz
+    attributes: *attributes
+    output:
+      <<: *output
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaCommonCrawl/
+    filter: *filter
+
+  - name: RedPajamaWikipedia
+    documents:
+      - 400G_data/400G_data_dolma_formate/documents/RedPajamaWikipedia/*.gz
+    attributes: *attributes
+    output:
+      <<: *output
+      path: 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaWikipedia/
+    filter: *filter
+
+
+work_dir:
+  input: "/tmp/olmo-mix-v1_5/input"
+  output: "/tmp/olmo-mix-v1_5/output"
+processes: 128
+
+

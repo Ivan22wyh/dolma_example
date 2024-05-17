@@ -1,0 +1,16 @@
+destination: Math_data_for7B/npy/proof-pile-2-arxiv-trian
+documents:
+  - /mnt/geogpt-gpfs/llm-course/home/xzhh/OLMo/data/Math_data_for7B/documents/proof-pile-2-arxiv-train/*.gz
+processes: 60
+tokenizer:
+  name_or_path: "EleutherAI/gpt-neox-20b"
+  bos_token_id: 0
+  eos_token_id: 0
+  pad_token_id: 1
+#
+#  - 400G_data/400G_data_dolma_formate_mixer/documents/Math_text/*.jsonl.gz
+#  - 400G_data/400G_data_dolma_formate_mixer/documents/MathPile/*.jsonl.gz
+#  - 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaArXiv/*.jsonl.gz
+#  - 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaBook/*.jsonl.gz
+#  - 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaC4/*.jsonl.gz
+#  - 400G_data/400G_data_dolma_formate_mixer/documents/RedPajamaCommonCrawl/*.jsonl.gz
